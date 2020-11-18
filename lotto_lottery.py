@@ -1,4 +1,5 @@
 import random
+
 class Bill:
     def __init__(self, amount, type, numbers, city):
         self.amount = amount
