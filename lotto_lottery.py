@@ -1,4 +1,5 @@
 import random
+import sys
 
 class Bill:
     def __init__(self, amount, type, numbers, city):
@@ -44,11 +45,13 @@ def main():
     type = []
     city = []
     x = 0
+    error_message = "Number not valid. You can only insert a number between {} and {}"
     city_list = ["Cagliari", "Firenze", "Genova", "Milano", "Napoli", "Palermo", "Roma", "Torino", "Venezia", "Tutte"]
     while True:
-        bills = int(input("How many bills? (press 0 to Exit): "))
-        error_message = "Number not valid. You can only insert a number between {} and {}"
+        bills = sys.argv
+        bills = int(sys.argv[1])
         if bills >= 1 and bills <= 5:
+            print("numero di bills {}".format(bills))
             print("Here's the bill's types:")
             print("1: Ambata")
             print("2: Ambo")
@@ -58,6 +61,7 @@ def main():
             i = 0
             while i != bills:
                 a = ["First", "Second", "Third", "Fourth", "Fifth"]
+                print("Insert the type of the {} bill: ".format(a[i]))
                 t = int(input("Insert the type of the {} bill: ".format(a[i])))
                 if t >= 1 and t <= 5:
                     type.append(t)
