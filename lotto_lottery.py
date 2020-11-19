@@ -1,4 +1,3 @@
-import random
 import argparse
 from ticket import Ticket
 
