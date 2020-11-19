@@ -2,49 +2,6 @@ import random
 import argparse
 from ticket import Ticket
 
-class Bill:
-    def __init__(self, amount, type, numbers, city):
-        self.amount = amount
-        self.type = type
-        self.numbers = numbers
-        self.city = city
-
-    def printBill(self):
-        print("Number of Bills: {}".format(self.amount))
-        a = ["FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH"]
-        types = {1: "Ambata", 2: "Ambo", 3: "Terna", 4: "Quaterna", 5: "Cinquina"}
-        i = 0
-        x = 0
-
-        while i != self.amount:
-            while x != len(self.type):
-                while x != len(self.numbers):
-                    while x != len(self.city):
-                        print("----------------")
-                        print("{} BILL".format(a[i]))
-                        print("Type: {}".format(types[self.type[x]]))
-                        print("Numbers to generate: {}".format(self.numbers[x]))
-                        wheel = Wheel(self.numbers[x])
-                        wheel.randomWheel()
-                        print("City: {}".format(self.city[x]))
-                        x = x + 1
-                        i = i + 1
-class Wheel:
-    def __init__(self, numbers):
-        self.numbers = numbers
-
-    def randomWheel(self):
-        generated = []
-        x = 0
-
-        while x != self.numbers:
-            generated.append(random.randint(1, 90))
-            x = x + 1
-            print("Numbers Generated:")
-
-            for element in generated:
-                print("{}".format(element))
-
 def main():
     num_gen = []
     type = []
@@ -53,12 +10,12 @@ def main():
     error_message = "Number not valid. You can only insert a number between {} and {}"
     city_list = ["Cagliari", "Firenze", "Genova", "Milano", "Napoli", "Palermo", "Roma", "Torino", "Venezia", "Tutte"]
     parser = argparse.ArgumentParser(description="Lotto Game")
-    parser.add_argument("bills", type=int, help='amount of ticket or numbers')
+    parser.add_argument("ticket", type=int, help="Amount of Ticket")
     args = parser.parse_args()
-    bills = args.bills
+    ticket = args.bills
     while True:
-        if bills >= 1 and bills <= 5:
-            print("Here's the bill's types:")
+        if ticket >= 1 and ticket <= 5:
+            print("Here's the ticket's types:")
             print("1: Ambata")
             print("2: Ambo")
             print("3: Terna")
@@ -66,7 +23,7 @@ def main():
             print("5: Cinquina")
             i = 0
 
-            while i != bills:
+            while i != ticket:
                 a = ["First", "Second", "Third", "Fourth", "Fifth"]
                 t = int(input("Insert the type of the {} bill: ".format(a[i])))
 
@@ -81,19 +38,19 @@ def main():
                         for element in range(len(city_list)):
                             if c == city_list[element]:
                                 city.append(c)
-                                bill = Bill(bills, type, num_gen, city)
+                                user_ticket = Ticket(ticket, type, num_gen, city)
                                 print("Bill correctly added.")
                                 i = i + 1
 
                             elif c == city_list[element].lower():
                                 city.append(c)
-                                bill = Bill(bills, type, num_gen, city)
+                                user_ticket = Ticket(ticket, type, num_gen, city)
                                 print("Bill correctly added.")
                                 i = i + 1
 
                             elif c == city_list[element].upper():
                                 city.append(c)
-                                bill = Bill(bills, type, num_gen, city)
+                                user_ticket = Ticket(ticket, type, num_gen, city)
                                 print("Bill correctly added.")
                                 i = i + 1
 
@@ -103,10 +60,10 @@ def main():
                         else:
 
                             print(error_message.format(1, 5))
-            bill = Bill(bills, type, num_gen, city)
-            bill.printBill()
+            user_ticket = Ticket(ticket, type, num_gen, city)
+            user_ticket.printTicket()
 
-        elif bills == 0:
+        elif ticket == 0:
             print("Closing..")
 
         else:
