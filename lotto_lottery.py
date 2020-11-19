@@ -1,5 +1,6 @@
 import random
-import sys
+import argparse
+from ticket import Ticket
 
 class Bill:
     def __init__(self, amount, type, numbers, city):
@@ -7,12 +8,14 @@ class Bill:
         self.type = type
         self.numbers = numbers
         self.city = city
+
     def printBill(self):
         print("Number of Bills: {}".format(self.amount))
         a = ["FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH"]
         types = {1: "Ambata", 2: "Ambo", 3: "Terna", 4: "Quaterna", 5: "Cinquina"}
         i = 0
         x = 0
+
         while i != self.amount:
             while x != len(self.type):
                 while x != len(self.numbers):
@@ -33,10 +36,12 @@ class Wheel:
     def randomWheel(self):
         generated = []
         x = 0
+
         while x != self.numbers:
             generated.append(random.randint(1, 90))
             x = x + 1
             print("Numbers Generated:")
+
             for element in generated:
                 print("{}".format(element))
 
@@ -47,11 +52,12 @@ def main():
     x = 0
     error_message = "Number not valid. You can only insert a number between {} and {}"
     city_list = ["Cagliari", "Firenze", "Genova", "Milano", "Napoli", "Palermo", "Roma", "Torino", "Venezia", "Tutte"]
+    parser = argparse.ArgumentParser(description="Lotto Game")
+    parser.add_argument("bills", type=int, help='amount of ticket or numbers')
+    args = parser.parse_args()
+    bills = args.bills
     while True:
-        bills = sys.argv
-        bills = int(sys.argv[1])
         if bills >= 1 and bills <= 5:
-            print("numero di bills {}".format(bills))
             print("Here's the bill's types:")
             print("1: Ambata")
             print("2: Ambo")
@@ -59,40 +65,50 @@ def main():
             print("4: Quaterna")
             print("5: Cinquina")
             i = 0
+
             while i != bills:
                 a = ["First", "Second", "Third", "Fourth", "Fifth"]
-                print("Insert the type of the {} bill: ".format(a[i]))
                 t = int(input("Insert the type of the {} bill: ".format(a[i])))
+
                 if t >= 1 and t <= 5:
                     type.append(t)
                     n = int(input("Insert the amount of numbers to generate: "))
                     num_gen.append(n)
+
                     if n >= 1 and n <= 10:
                         c = input("Insert the city name or 'Tutte': ")
+
                         for element in range(len(city_list)):
                             if c == city_list[element]:
                                 city.append(c)
                                 bill = Bill(bills, type, num_gen, city)
                                 print("Bill correctly added.")
                                 i = i + 1
+
                             elif c == city_list[element].lower():
                                 city.append(c)
                                 bill = Bill(bills, type, num_gen, city)
                                 print("Bill correctly added.")
                                 i = i + 1
+
                             elif c == city_list[element].upper():
                                 city.append(c)
                                 bill = Bill(bills, type, num_gen, city)
                                 print("Bill correctly added.")
                                 i = i + 1
+
                             else:
                                 print(error_message.format(1, 10))
+
                         else:
+
                             print(error_message.format(1, 5))
             bill = Bill(bills, type, num_gen, city)
             bill.printBill()
+
         elif bills == 0:
             print("Closing..")
+
         else:
             print(error_message.format(1, 5))
 
