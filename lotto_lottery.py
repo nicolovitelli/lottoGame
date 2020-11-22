@@ -1,18 +1,19 @@
 import argparse
 from lotto.ticket import Ticket
+from lotto.city import City
+
 
 def main():
     num_gen = []
     type = []
-    city = []
-    x = 0
+    user_cities = []
     error_message = "Number not valid. You can only insert a number between {} and {}"
     city_list = ["Cagliari", "Firenze", "Genova", "Milano", "Napoli", "Palermo", "Roma", "Torino", "Venezia", "Tutte"]
     parser = argparse.ArgumentParser(description="Lotto Game")
     parser.add_argument("tickets", type=int, help="Amount of Ticket")
     args = parser.parse_args()
     ticket = args.tickets
-    if ticket >= 1 and ticket <= 5:
+    if 1 <= ticket <= 5:
         print("Here's the ticket's types:")
         print("1: Ambata")
         print("2: Ambo")
@@ -23,35 +24,26 @@ def main():
         while i != ticket:
             a = ["First", "Second", "Third", "Fourth", "Fifth"]
             t = int(input("Insert the type of the {} ticket: ".format(a[i])))
-            if t >= 1 and t <= 5:
+            if 1 <= t <= 5:
                 type.append(t)
                 n = int(input("Insert the amount of numbers to generate: "))
                 num_gen.append(n)
-                if n >= 1 and n <= 10:
+                if 1 <= n <= 10:
                     c = input("Insert the city name or 'Tutte': ")
-                    for element in range(len(city_list)):
-                        if c == city_list[element]:
-                            city.append(c)
-                            user_ticket = Ticket(ticket, type, num_gen, city)
-                            print("Ticket correctly added.")
-                            i = i + 1
-                        elif c == city_list[element].lower():
-                            city.append(c)
-                            user_ticket = Ticket(ticket, type, num_gen, city)
-                            print("Ticket correctly added.")
-                            i = i + 1
-                        elif c == city_list[element].upper():
-                            city.append(c)
-                            user_ticket = Ticket(ticket, type, num_gen, city)
-                            print("Ticket correctly added.")
-                            i = i + 1
+                    user_city = City(c, city_list, user_cities)
+                    if user_city.pickCity():
+                        user_ticket = Ticket(ticket, type, num_gen, user_cities)
+                        print("Ticket correctly added.")
+                        i = i + 1
+                    else:
+                        print("City non valid. Try again.")
                 else:
                     print(error_message.format(1, 10))
                     return
             else:
                 print(error_message.format(1, 5))
                 return
-        user_ticket = Ticket(ticket, type, num_gen, city)
+        user_ticket = Ticket(ticket, type, num_gen, user_cities)
         user_ticket.printTicket()
     elif ticket == "0":
         print("Closing..")
