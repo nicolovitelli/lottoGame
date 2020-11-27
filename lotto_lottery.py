@@ -1,56 +1,27 @@
 import argparse
-from lotto.ticket import Ticket
-from lotto.city import City
+from lotto.lotto import Lotto
+
+""" once the user launched the program by inserting the amount of tickets, it checks if the numbers is between
+1 and 5, so it will convert the value inserted by the user to a int value. Then, the program creates a Lotto object from
+the Lotto class and will print the Tickets"""
 
 
 def main():
-    num_gen = []
-    type = []
-    user_cities = []
-    error_message = "Number not valid. You can only insert a number between {} and {}"
-    city_list = ["Cagliari", "Firenze", "Genova", "Milano", "Napoli", "Palermo", "Roma", "Torino", "Venezia", "Tutte"]
     parser = argparse.ArgumentParser(description="Lotto Game")
-    parser.add_argument("tickets", type=int, help="Amount of Ticket")
+    parser.add_argument("-n", type=int, help="Amount of Tickets")
     args = parser.parse_args()
-    ticket = args.tickets
-    if 1 <= ticket <= 5:
-        print("Here's the ticket's types:")
-        print("1: Ambata")
-        print("2: Ambo")
-        print("3: Terna")
-        print("4: Quaterna")
-        print("5: Cinquina")
-        i = 0
-        while i != ticket:
-            a = ["First", "Second", "Third", "Fourth", "Fifth"]
-            t = int(input("Insert the type of the {} ticket: ".format(a[i])))
-            if 1 <= t <= 5:
-                type.append(t)
-                n = int(input("Insert the amount of numbers to generate: "))
-                num_gen.append(n)
-                if 1 <= n <= 10:
-                    c = input("Insert the city name or 'Tutte': ")
-                    user_city = City(c, city_list, user_cities)
-                    if user_city.pickCity():
-                        user_ticket = Ticket(ticket, type, num_gen, user_cities)
-                        print("Ticket correctly added.")
-                        i = i + 1
-                    else:
-                        print("City non valid. Try again.")
-                else:
-                    print(error_message.format(1, 10))
-                    return
-            else:
-                print(error_message.format(1, 5))
-                return
-        user_ticket = Ticket(ticket, type, num_gen, user_cities)
-        user_ticket.printTicket()
-    elif ticket == "0":
+    tickets_amount = args.n
+    if 1 <= tickets_amount <= 5:
+        tickets_amount = int(tickets_amount)
+    # if the user inserts 0, the program closes
+    elif tickets_amount == 0:
         print("Closing..")
-        return
+        quit()
     else:
-        print(error_message.format(1, 5))
-        return
+        tickets_amount = input("Number non valid. Please enter a number between 1 and 5. \n -> ")
+    lotto = Lotto(tickets_amount)
+    for ticket in lotto.tickets:
+        ticket.printTicket()
 
 
 if __name__ == '__main__':
