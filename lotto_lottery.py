@@ -22,6 +22,9 @@ def main():
     lotto = Lotto(tickets_amount)
     for ticket in lotto.tickets:
         ticket.printTicket()
+    print("-- EXTRACTION --")
+    extraction = Extraction()
+    extraction.printExtraction()
 
 
 if __name__ == '__main__':
