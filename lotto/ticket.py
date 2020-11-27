@@ -1,50 +1,31 @@
+from lotto.city import City
+from lotto.bet import Bet
 import random
 
 
 class Ticket:
-    def __init__(self, amount, type, numbers, city):
-        self.amount = amount
-        self.type = type
-        self.numbers = numbers
-        self.city = city
+    def __init__(self, city_number, bet_type, tickets_number):
+        self.city = City(city_number)
+        self.bet_type = Bet(bet_type)
+        self.generated_numbers = []
+        self.generateTicket(tickets_number)
 
-    def ticketTypes(self):
-        print("Here's the ticket's types:")
-        print("1: Ambata")
-        print("2: Ambo")
-        print("3: Terna")
-        print("4: Quaterna")
-        print("5: Cinquina")
+    """ this little function will generate the numbers from 1 to 90 and insert the results into the generated_numbers
+    array """
+    def generateTicket(self, tickets_number):
+        while len(self.generated_numbers) < tickets_number:
+            number = random.randint(1, 90)
+            if number not in self.generated_numbers:
+                self.generated_numbers.append(str(number))
 
+    """ this function shows the ticket to the user """
     def printTicket(self):
-        a = ["FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH"]
-        types = {1: "Ambata", 2: "Ambo", 3: "Terna", 4: "Quaterna", 5: "Cinquina"}
-        i = 0
-        x = 0
-        print("+ --------------- +")
-        print("+ Italian Lottery +")
-        print("+ --------------- +")
-        while i != self.amount:
-            while x != len(self.type):
-                while x != len(self.numbers):
-                    while x != len(self.city):
-                        print("+   {} TICKET  ".format(a[i]))
-                        print("+ --------------- +")
-                        print("+    Type:  {}  ".format(types[self.type[x]].upper()))
-                        print("+    City:  {}  ".format(self.city[x]).upper())
-                        ticket = Ticket(self.amount, self.type, self.numbers[x], self.city)
-                        ticket.generateTicket(self.numbers)
-                        print("\n+ --------------- +")
-                        x = x + 1
-                        i = i + 1
-
-    def generateTicket(self, numbers):
-        generated = []
-        x = 0
-        while x != self.numbers:
-            generated.append(random.randint(1, 90))
-            x = x + 1
-        print("+", end="")
-        print("    ",end="")
-        for element in generated:
-            print("{} ".format(element), end=" ")
+        print("+--------------+")
+        print("|    TICKET    |")
+        print("+--------------+")
+        print("|    City: {}    ".format(self.city.user_city.upper()))
+        print("|    Ticket Type: {}    ".format(self.bet_type.user_ticket_type.upper()))
+        # printing all generated numbers
+        for number in self.generated_numbers:
+            print("     {} ".format(number), end="")
+        print("\n")
