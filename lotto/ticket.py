@@ -10,7 +10,7 @@ class Ticket:
         self.generated_numbers = []
         self.generateTicket(tickets_number)
 
-    """ this little function will generate the numbers from 1 to 90 and insert the results into the generated_numbers
+    """ this function will generate the numbers from 1 to 90 and insert the results into the generated_numbers
     array """
     def generateTicket(self, tickets_number):
         while len(self.generated_numbers) < tickets_number:
