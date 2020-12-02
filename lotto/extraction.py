@@ -21,22 +21,22 @@ class Extraction:
         winning_ticket = False
         for ticket in tickets:
             if ticket.city.user_city.lower() == 'tutte':
-                win_dict = {}
+                winning_combination = {}
                 for city in self.numbers_extracted_each_city.keys():
-                    win_list = []
+                    winning_numbers_list = []
                     for number in ticket.generated_numbers.generated_numbers:
                         if number in self.numbers_extracted_each_city[city].generated_numbers:
-                            win_list.append(number)
-                    win_dict[city] = win_list
+                            winning_numbers_list.append(number)
+                    winning_combination[city] = winning_numbers_list
             else:
-                win_dict = {}
-                win_list = []
+                winning_combination  = {}
+                winning_numbers_list = []
                 for number in ticket.generated_numbers.generated_numbers:
-                    if number in self.numbers_extracted_each_citye[ticket.city.user_city].generated_numbers:
-                        win_list.append(number)
-                win_dict[ticket.city.user_city] = win_list
-            for city in win_dict.keys():
-                if len(win_dict[city]) > Bet.ticket_types.index(ticket.bet_type.user_ticket_type):
+                    if number in self.numbers_extracted_each_city[ticket.city.user_city].generated_numbers:
+                        winning_numbers_list.append(number)
+                winning_combination[ticket.city.user_city] = winning_numbers_list
+            for city in winning_combination.keys():
+                if len(winning_combination[city]) > Bet.ticket_types.index(ticket.bet_type.user_ticket_type):
                     print("-- RESULTS --")
                     print("You Win :)")
                     print("Your Winning Ticket: ")
