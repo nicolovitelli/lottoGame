@@ -1,5 +1,6 @@
 class Bet:
     ticket_types = ["Ambata", "Ambo", "Terna", "Quaterna", "Cinquina"]
+
     def __init__(self, ticket_type_number):
         self.type = Bet.ticket_types[ticket_type_number]
 
