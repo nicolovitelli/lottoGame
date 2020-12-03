@@ -1,5 +1,6 @@
 import argparse
 from lotto.lotto import Lotto
+from lotto.extraction import Extraction
 
 """ once the user launched the program by inserting the amount of tickets, it checks if the numbers is between
 1 and 5, so it will convert the value inserted by the user to a int value. Then, the program creates a Lotto object from
@@ -22,6 +23,10 @@ def main():
     lotto = Lotto(tickets_amount)
     for ticket in lotto.tickets:
         ticket.printTicket()
+    print("-- EXTRACTION --")
+    extraction = Extraction()
+    extraction.printExtraction()
+    extraction.results(lotto.tickets)
 
 
 if __name__ == '__main__':
