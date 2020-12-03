@@ -1,7 +1,7 @@
 from lotto.bet import Bet
 from lotto.city import City
 from lotto.ticket import Ticket
-
+from lotto.payment import Payment
 
 class Lotto:
     def __init__(self, tickets_amount):
@@ -22,8 +22,8 @@ class Lotto:
             while True:
                 if int(bet_type) <= int(num_gen) <= 10:
                     num_gen = int(num_gen)
-                    print()
                     break
                 else:
                     num_gen = input("Invalid Number. Please choose a number between {} and 10: ".format(bet_type))
-            self.tickets.append(Ticket(city_number, bet_type, num_gen))
+            bet_amount = input("Insert the Amount of the Bet: ")
+            self.tickets.append(Ticket(city_number, bet_type, num_gen, bet_amount))
