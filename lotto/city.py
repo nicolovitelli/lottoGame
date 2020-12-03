@@ -1,8 +1,9 @@
 class City:
     city_list = ["Bari", "Cagliari", "Firenze", "Genova", "Milano", "Napoli", "Palermo", "Roma", "Torino",
                  "Venezia", "Tutte"]
+
     def __init__(self, city_number):
-        self.user_city = City.city_list[city_number - 1]
+        self.name = City.city_list[city_number - 1]
 
     # this static method permits the user to choose a city by inserting its number
     @staticmethod
