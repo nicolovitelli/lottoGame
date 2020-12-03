@@ -1,7 +1,7 @@
 class Bet:
     ticket_types = ["Ambata", "Ambo", "Terna", "Quaterna", "Cinquina"]
     def __init__(self, ticket_type_number):
-        self.user_ticket_type = Bet.ticket_types[ticket_type_number]
+        self.type = Bet.ticket_types[ticket_type_number]
 
     # this static method permits the user to insert the bet type
     @staticmethod
